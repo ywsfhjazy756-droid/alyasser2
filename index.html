@@ -1,0 +1,2034 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>آل ياسر للتطوير العقاري</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@300;400;500;600;700;800;900&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        :root {
+            --gold: #C5A028;
+            --gold-light: #E8D068;
+            --gold-dark: #9B7B0E;
+            --gold-pale: #F7F0D4;
+            --gold-glow: rgba(197, 160, 40, 0.15);
+            --white: #FFFFFF;
+            --off-white: #FAFAF8;
+            --cream: #F5F3EE;
+            --light-gray: #EDEBE6;
+            --mid-gray: #B0ADA5;
+            --text-dark: #2C2A25;
+            --text-medium: #5A5750;
+            --text-light: #8A8680;
+            --shadow-sm: 0 2px 12px rgba(0,0,0,0.04);
+            --shadow-md: 0 8px 30px rgba(0,0,0,0.06);
+            --shadow-lg: 0 20px 60px rgba(0,0,0,0.08);
+            --shadow-gold: 0 8px 30px rgba(197, 160, 40, 0.12);
+        }
+
+        body {
+            font-family: 'IBM Plex Sans Arabic', 'Noto Kufi Arabic', sans-serif;
+            background: var(--off-white);
+            color: var(--text-dark);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--cream); }
+        ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 10px; }
+
+        /* ==================== NAVBAR ==================== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 18px 70px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            background: transparent;
+        }
+
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.97);
+            backdrop-filter: blur(20px);
+            padding: 12px 70px;
+            box-shadow: 0 1px 30px rgba(197, 160, 40, 0.08);
+            border-bottom: 1px solid rgba(197, 160, 40, 0.1);
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .nav-logo img {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            border: 2px solid var(--gold);
+            object-fit: cover;
+            transition: all 0.4s;
+        }
+
+        .navbar.scrolled .nav-logo img {
+            width: 42px;
+            height: 42px;
+        }
+
+        .nav-logo-text h1 {
+            font-family: 'Noto Kufi Arabic', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--gold);
+            line-height: 1.2;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-logo-text span {
+            font-size: 0.62rem;
+            color: var(--mid-gray);
+            letter-spacing: 4px;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 4px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            position: relative;
+            letter-spacing: 0.3px;
+        }
+
+        .navbar:not(.scrolled) .nav-links a {
+            color: var(--white);
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--gold);
+            background: var(--gold-glow);
+        }
+
+        .navbar:not(.scrolled) .nav-links a:hover,
+        .navbar:not(.scrolled) .nav-links a.active {
+            color: var(--gold-light);
+            background: rgba(255,255,255,0.08);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 2px;
+        }
+
+        .nav-links a:hover::after, .nav-links a.active::after {
+            width: 24px;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: 2px solid var(--gold);
+            color: var(--gold);
+            font-size: 1.2rem;
+            padding: 8px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        /* ==================== HERO ==================== */
+        .hero {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background: url('hero-bg.jpg') center/cover no-repeat;
+            filter: brightness(0.35);
+            transform: scale(1.05);
+            animation: heroZoom 25s ease-in-out infinite alternate;
+        }
+
+        @keyframes heroZoom {
+            0% { transform: scale(1.05); }
+            100% { transform: scale(1.15); }
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                180deg,
+                rgba(30, 28, 20, 0.45) 0%,
+                rgba(30, 28, 20, 0.25) 40%,
+                rgba(30, 28, 20, 0.5) 70%,
+                rgba(250, 250, 248, 1) 100%
+            );
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 850px;
+            padding: 0 30px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            border: 1px solid rgba(232, 208, 104, 0.4);
+            color: var(--gold-light);
+            padding: 10px 32px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            margin-bottom: 30px;
+            font-weight: 600;
+            background: rgba(197, 160, 40, 0.08);
+            backdrop-filter: blur(10px);
+            animation: fadeSlideDown 1s ease;
+        }
+
+        .hero-content h1 {
+            font-family: 'Noto Kufi Arabic', sans-serif;
+            font-size: 4rem;
+            font-weight: 900;
+            color: var(--white);
+            margin-bottom: 12px;
+            line-height: 1.3;
+            animation: fadeSlideUp 1s ease 0.2s both;
+            text-shadow: 0 4px 30px rgba(0,0,0,0.2);
+        }
+
+        .hero-content h1 span {
+            color: var(--gold-light);
+            display: block;
+        }
+
+        .hero-tagline {
+            font-size: 1.3rem;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 15px;
+            font-weight: 300;
+            letter-spacing: 1px;
+            animation: fadeSlideUp 1s ease 0.4s both;
+        }
+
+        .hero-desc {
+            font-size: 1.05rem;
+            color: rgba(255,255,255,0.65);
+            max-width: 580px;
+            margin: 0 auto 40px;
+            line-height: 1.9;
+            animation: fadeSlideUp 1s ease 0.6s both;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 18px;
+            justify-content: center;
+            animation: fadeSlideUp 1s ease 0.8s both;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            color: var(--white);
+            padding: 14px 42px;
+            border: none;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            font-family: 'IBM Plex Sans Arabic', sans-serif;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 20px rgba(197, 160, 40, 0.25);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(197, 160, 40, 0.35);
+        }
+
+        .btn-outline {
+            background: rgba(255,255,255,0.08);
+            color: var(--white);
+            padding: 14px 42px;
+            border: 1.5px solid rgba(255,255,255,0.3);
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s;
+            font-family: 'IBM Plex Sans Arabic', sans-serif;
+            text-decoration: none;
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-outline:hover {
+            background: var(--white);
+            color: var(--text-dark);
+            border-color: var(--white);
+            transform: translateY(-3px);
+        }
+
+        .hero-scroll {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            animation: floatBounce 2.5s ease-in-out infinite;
+        }
+
+        .hero-scroll i {
+            color: var(--gold);
+            font-size: 1.3rem;
+            opacity: 0.6;
+        }
+
+        @keyframes floatBounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); opacity: 1; }
+            50% { transform: translateX(-50%) translateY(12px); opacity: 0.5; }
+        }
+
+        /* ==================== SECTIONS COMMON ==================== */
+        .section {
+            padding: 100px 70px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 70px;
+        }
+
+        .section-subtitle {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--gold);
+            font-size: 0.78rem;
+            letter-spacing: 5px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+        }
+
+        .section-subtitle::before, .section-subtitle::after {
+            content: '';
+            width: 30px;
+            height: 1px;
+            background: var(--gold);
+            opacity: 0.4;
+        }
+
+        .section-title {
+            font-family: 'Noto Kufi Arabic', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 900;
+            color: var(--text-dark);
+            margin-bottom: 16px;
+            letter-spacing: -0.5px;
+        }
+
+        .section-title span {
+            color: var(--gold);
+        }
+
+        .section-line {
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(to right, var(--gold), var(--gold-light));
+            margin: 0 auto;
+            border-radius: 5px;
+        }
+
+        /* ==================== ABOUT ==================== */
+        .about-section {
+            background: var(--off-white);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .about-image-wrapper {
+            position: relative;
+        }
+
+        .about-image-wrapper img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid rgba(197, 160, 40, 0.1);
+        }
+
+        .about-image-wrapper::before {
+            content: '';
+            position: absolute;
+            top: -12px;
+            right: -12px;
+            width: 100%;
+            height: 100%;
+            border: 2px solid var(--gold-light);
+            border-radius: 20px;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        .about-badge {
+            position: absolute;
+            bottom: -18px;
+            left: -18px;
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            color: var(--white);
+            padding: 22px 30px;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: var(--shadow-gold);
+        }
+
+        .about-badge .number {
+            font-family: 'Noto Kufi Arabic', sans-serif;
+            font-size: 2rem;
+            font-weight: 900;
+            line-height: 1;
+        }
+
+        .about-badge .text {
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .about-text h3 {
+            font-family: 'Noto Kufi Arabic', sans-serif;
+            font-size: 1.8rem;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+            font-weight: 800;
+        }
+
+        .about-text p {
+            color: var(--text-medium);
+            line-height: 2;
+            margin-bottom: 22px;
+            font-size: 1rem;
+        }
+
+        .about-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 28px;
+        }
+
+        .about-feature {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 18px;
+            background: var(--white);
+            border-radius: 12px;
+            border: 1px solid var(--light-gray);
+            transition: all 0.3s;
+        }
+
+        .about-feature:hover {
+            border-color: var(--gold);
+            box-shadow: var(--shadow-gold);
+            transform: translateY(-2px);
+        }
+
+        .about-feature i {
+            color: var(--gold);
+            font-size: 1rem;
+        }
+
+        .about-feature span {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        /* ==================== VALUES ==================== */
+        .values-section {
+            background: var(--cream);
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .value-card {
+            text-align: center;
+            padding: 50px 35px;
+            background: var(--white);
+            border-radius: 20px;
+            border: 1px solid var(--light-gray);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .value-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(to right, transparent, var(--gold), transparent);
+            opacity: 0;
+            transition: 0.5s;
+        }
+
+        .value-card:hover::before { opacity: 1; }
+
+        .value-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(197, 160, 40, 0.2);
+        }
+
+        .value-icon {
+            width: 72px;
+            height: 72px;
+            background: var(--gold-pale);
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 22px;
+            transition: all 0.4s;
+        }
+
+        .value-card:hover .value-icon {
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+        }
+
+        .value-card:hover .value-icon i {
+            color: var(--white);
+        }
+
+        .value-icon i {
+            font-size: 1.6rem;
+            color: var(--gold);
+            transition: all 0.4s;
+        }
+
+        .value-card h3 {
+            font-family: 'Noto Kufi Arabic', sans-serif;
+            font-size: 1.15rem;
+            color: var(--text-dark);
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .value-card p {
+            color: var(--text-light);
+            line-height: 1.9;
+            font-size: 0.88rem;
+        }
+
+        /* ==================== QUOTE ==================== */
+        .quote-section {
+            background: var(--off-white);
+            padding: 80px 70px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quote-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--gold), transparent);
+            opacity: 0.2;
+        }
+
+        .quote-section::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--gold), transparent);
+            opacity: 0.2;
+        }
+
+        .quote-icon {
+            font-size: 2.5rem;
+            color: var(--gold);
+            opacity: 0.2;
+            margin-bottom: 22px;
+        }
+
+        .quote-text {
+            font-family: 'Noto Kufi Arabic', sans-serif;
+            font-size: 1.7rem;
+            color: var(--text-dark);
+            font-weight: 700;
+            max-width: 750px;
+            margin: 0 auto 15px;
+            line-height: 2;
+        }
+
+        .quote-text span {
+            color: var(--gold);
+        }
+
+        .quote-author {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* ==================== PROJECTS ==================== */
+        .projects-section {
+            background: var(--off-white);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .project-card {
+            position: relative;
+            height: 440px;
+            border-radius: 24px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 1px solid rgba(197, 160, 40, 0.15);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow-md);
+        }
+
+        .project-card:hover {
+            transform: translateY(-12px) scale(1.01);
+            box-shadow: 0 25px 70px rgba(197, 160, 40, 0.18);
+            border-color: var(--gold);
+        }
+
+        .project-card-bg {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+            filter: brightness(0.55);
+        }
+
+        .project-card:hover .project-card-bg {
+            transform: scale(1.12);
+            filter: brightness(0.4);
+        }
+
+        .project-card-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to top,
+                rgba(30, 28, 20, 0.95) 0%,
+                rgba(30, 28, 20, 0.3) 55%,
+                transparent 100%
+            );
+        }
+
+        .project-card-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 40px;
+            z-index: 2;
+        }
+
+        .project-card-tag {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            color: var(--white);
+            padding: 5px 18px;
+            border-radius: 50px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            margin-bottom: 14px;
+            letter-spacing: 1px;
+        }
+
+        .project-card-content h3 {
+            font-family: 'Noto Kufi Arabic', sans-serif;
+            font-size: 1.7rem;
+            font-weight: 800;
+            color: var(--white);
+            margin-bottom: 8px;
+        }
+
+        .project-card-content p {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.88rem;
+            margin-bottom: 22px;
+            line-height: 1.7;
+        }
+
+        .project-card-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--gold-light);
+            padding: 12px 28px;
+            border-radius: 10px;
+            border: 1px solid rgba(232, 208, 104, 0.3);
+            font-size: 0.85rem;
+            font-weight: 700;
+            transition: all 0.4s;
+            font-family: 'IBM Plex Sans Arabic', sans-serif;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+        }
+
+        .project-card-btn:hover {
+            background: var(--gold);
+            color: var(--white);
+            border-color: var(--gold);
+        }
+
+        /* ==================== CONSTRUCTION GALLERY ==================== */
+        .construction-section {
+            background: var(--cream);
+        }
+
+        .construction-gallery {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 12px;
+        }
+
+        .construction-gallery img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 14px;
+            border: 1px solid var(--light-gray);
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .construction-gallery img:hover {
+            transform: scale(1.05);
+            border-color: var(--gold);
+            box-shadow: var(--shadow-gold);
+            z-index: 2;
+            position: relative;
+        }
+
+        .construction-gallery.collapsed {
+            max-height: 390px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .construction-gallery.collapsed::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 120px;
+            background: linear-gradient(to top, var(--cream), transparent);
+            pointer-events: none;
+        }
+
+        .toggle-gallery-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: 30px auto 0;
+            padding: 14px 40px;
+            background: var(--white);
+            border: 2px solid var(--gold);
+            color: var(--gold);
+            border-radius: 12px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s;
+            font-family: 'IBM Plex Sans Arabic', sans-serif;
+        }
+
+        .toggle-gallery-btn:hover {
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            color: var(--white);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-gold);
+        }
+
+        .toggle-gallery-btn i {
+            transition: transform 0.4s;
+        }
+
+        .toggle-gallery-btn.expanded i {
+            transform: rotate(180deg);
+        }
+
+        /* ==================== MODAL ==================== */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(44, 42, 37, 0.6);
+            z-index: 2000;
+            display: none;
+            justify-content: center;
+            align-items: flex-start;
+            overflow-y: auto;
+            padding: 40px 20px;
+            backdrop-filter: blur(12px);
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--white);
+            border-radius: 24px;
+            max-width: 950px;
+            width: 100%;
+            border: 1px solid rgba(197, 160, 40, 0.15);
+            animation: modalIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            margin: auto;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.15);
+        }
+
+        @keyframes modalIn {
+            from { opacity: 0; transform: translateY(50px) scale(0.93); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .modal-header {
+            padding: 40px 45px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .modal-header h2 {
+            font-family: 'Noto Kufi Arabic', sans-serif;
+            font-size: 2rem;
+            color: var(--text-dark);
+            font-weight: 800;
+        }
+
+        .modal-header p {
+            color: var(--text-light);
+            font-size: 0.88rem;
+            margin-top: 5px;
+        }
+
+        .modal-close {
+            background: var(--cream);
+            border: 1px solid var(--light-gray);
+            color: var(--text-light);
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close:hover {
+            background: var(--gold);
+            color: var(--white);
+            border-color: var(--gold);
+        }
+
+        .modal-body {
+            padding: 35px 45px 45px;
+        }
+
+        .modal-description h3 {
+            font-family: 'Noto Kufi Arabic', sans-serif;
+            font-size: 1.2rem;
+            color: var(--text-dark);
+            margin-bottom: 14px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .modal-description h3 i {
+            color: var(--gold);
+            font-size: 1rem;
+        }
+
+        .modal-description p {
+            color: var(--text-medium);
+            line-height: 2;
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+        }
+
+        .modal-info-box {
+            background: var(--gold-pale);
+            border: 1px solid rgba(197, 160, 40, 0.2);
+            border-radius: 14px;
+            padding: 20px 25px;
+            margin-bottom: 30px;
+        }
+
+        .modal-info-box .info-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 0;
+            color: var(--text-medium);
+            font-size: 0.9rem;
+        }
+
+        .modal-info-box .info-row:not(:last-child) {
+            border-bottom: 1px solid rgba(197, 160, 40, 0.15);
+        }
+
+        .modal-info-box .info-row i {
+            color: var(--gold);
+            width: 20px;
+            text-align: center;
+        }
+
+        .modal-info-box .info-row strong {
+            color: var(--text-dark);
+            font-weight: 700;
+        }
+
+        .modal-features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 40px;
+        }
+
+        .modal-feature {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 18px;
+            background: var(--cream);
+            border-radius: 12px;
+            border: 1px solid var(--light-gray);
+            transition: all 0.3s;
+        }
+
+        .modal-feature:hover {
+            border-color: var(--gold);
+            background: var(--gold-pale);
+        }
+
+        .modal-feature i {
+            color: var(--gold);
+            font-size: 1.1rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        .modal-feature span {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .modal-gallery-title {
+            font-family: 'Noto Kufi Arabic', sans-serif;
+            font-size: 1.2rem;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .modal-gallery-title i {
+            color: var(--gold);
+        }
+
+        .modal-gallery {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        .modal-gallery img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 14px;
+            border: 1px solid var(--light-gray);
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .modal-gallery img:hover {
+            transform: scale(1.03);
+            border-color: var(--gold);
+            box-shadow: var(--shadow-gold);
+        }
+
+        .modal-gallery img:first-child {
+            grid-column: span 2;
+            height: 240px;
+        }
+
+        /* ==================== LIGHTBOX ==================== */
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 3000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90vh;
+            border-radius: 16px;
+            border: 2px solid rgba(197, 160, 40, 0.2);
+            animation: lightboxIn 0.4s ease;
+        }
+
+        @keyframes lightboxIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            background: var(--gold);
+            color: var(--white);
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .lightbox-close:hover {
+            transform: rotate(90deg) scale(1.1);
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(197, 160, 40, 0.8);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .lightbox-nav:hover {
+            background: var(--gold);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .lightbox-nav.prev { right: 30px; }
+        .lightbox-nav.next { left: 30px; }
+
+        .lightbox-counter {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255,255,255,0.7);
+            font-size: 0.9rem;
+            font-weight: 600;
+            background: rgba(0,0,0,0.5);
+            padding: 8px 20px;
+            border-radius: 20px;
+        }
+
+        /* ==================== CONTACT ==================== */
+        .contact-section {
+            background: var(--off-white);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .contact-info-card {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            padding: 28px 30px;
+            background: var(--white);
+            border-radius: 16px;
+            border: 1px solid var(--light-gray);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow-sm);
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .contact-info-card:hover {
+            border-color: var(--gold);
+            box-shadow: var(--shadow-gold);
+            transform: translateY(-5px);
+        }
+
+        .contact-info-card .icon {
+            width: 52px;
+            height: 52px;
+            background: var(--gold-pale);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.4s;
+        }
+
+        .contact-info-card:hover .icon {
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+        }
+
+        .contact-info-card:hover .icon i {
+            color: var(--white);
+        }
+
+        .contact-info-card .icon i {
+            color: var(--gold);
+            font-size: 1.2rem;
+            transition: all 0.4s;
+        }
+
+        .contact-info-card h4 {
+            font-family: 'Noto Kufi Arabic', sans-serif;
+            color: var(--text-dark);
+            font-size: 0.88rem;
+            margin-bottom: 4px;
+            font-weight: 700;
+        }
+
+        .contact-info-card p {
+            color: var(--text-light);
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+
+        /* ==================== FOOTER ==================== */
+        .footer {
+            background: var(--text-dark);
+            padding: 50px 70px 35px;
+            position: relative;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(to right, var(--gold-dark), var(--gold), var(--gold-light), var(--gold), var(--gold-dark));
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1100px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .footer-logo img {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            border: 2px solid var(--gold);
+            object-fit: cover;
+        }
+
+        .footer-logo span {
+            font-family: 'Noto Kufi Arabic', sans-serif;
+            color: var(--gold);
+            font-weight: 800;
+            font-size: 1rem;
+        }
+
+        .footer-text {
+            color: rgba(255,255,255,0.4);
+            font-size: 0.8rem;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 10px;
+        }
+
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255,255,255,0.5);
+            transition: all 0.4s;
+            text-decoration: none;
+        }
+
+        .footer-social a:hover {
+            background: var(--gold);
+            color: var(--white);
+            border-color: var(--gold);
+            transform: translateY(-3px);
+        }
+
+        /* ==================== ANIMATIONS ==================== */
+        @keyframes fadeSlideUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeSlideDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(60px);
+            transition: all 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .reveal-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(-60px);
+            transition: all 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .reveal-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .reveal-scale {
+            opacity: 0;
+            transform: scale(0.9);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .reveal-scale.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .stagger-children .reveal {
+            transition-delay: calc(var(--i, 0) * 0.12s);
+        }
+
+        /* ==================== RESPONSIVE ==================== */
+        @media (max-width: 1024px) {
+            .navbar { padding: 15px 30px; }
+            .navbar.scrolled { padding: 10px 30px; }
+            .section { padding: 70px 30px; }
+            .about-grid { grid-template-columns: 1fr; gap: 50px; }
+            .projects-grid { grid-template-columns: 1fr; max-width: 550px; }
+            .modal-features { grid-template-columns: repeat(2, 1fr); }
+            .modal-gallery { grid-template-columns: repeat(3, 1fr); }
+            .modal-gallery img:first-child { grid-column: span 2; }
+            .contact-grid { grid-template-columns: 1fr; max-width: 500px; }
+            .quote-section { padding: 60px 30px; }
+            .construction-gallery { grid-template-columns: repeat(4, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(255, 255, 255, 0.98);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+                z-index: 999;
+            }
+            .nav-links.open { display: flex; }
+            .nav-links a { color: var(--text-dark) !important; font-size: 1.1rem; }
+            .menu-toggle { display: block; z-index: 1001; }
+            .hero-content h1 { font-size: 2.2rem; }
+            .hero-tagline { font-size: 1rem; }
+            .hero-btns { flex-direction: column; align-items: center; gap: 12px; }
+            .values-grid { grid-template-columns: 1fr; }
+            .projects-grid { grid-template-columns: 1fr; }
+            .modal-features { grid-template-columns: 1fr 1fr; }
+            .modal-gallery { grid-template-columns: repeat(2, 1fr); }
+            .modal-gallery img:first-child { grid-column: span 2; height: 200px; }
+            .modal-header { padding: 25px; }
+            .modal-body { padding: 25px; }
+            .section-title { font-size: 2rem; }
+            .quote-text { font-size: 1.2rem; }
+            .footer { padding: 35px 25px 25px; }
+            .about-features { grid-template-columns: 1fr; }
+            .project-card { height: 380px; }
+            .hero-desc { font-size: 0.92rem; }
+            .contact-grid { grid-template-columns: 1fr; }
+            .construction-gallery { grid-template-columns: repeat(3, 1fr); }
+            .construction-gallery img { height: 140px; }
+        }
+
+        @media (max-width: 480px) {
+            .hero-content h1 { font-size: 1.8rem; }
+            .modal-features { grid-template-columns: 1fr; }
+            .construction-gallery { grid-template-columns: repeat(2, 1fr); }
+            .construction-gallery img { height: 120px; }
+            .modal-gallery { grid-template-columns: 1fr 1fr; }
+            .modal-gallery img:first-child { grid-column: span 1; height: 180px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-logo">
+            <img src="logo.png" alt="آل ياسر">
+            <div class="nav-logo-text">
+                <h1>آل ياسر</h1>
+                <span>REAL ESTATE DEVELOPMENT</span>
+            </div>
+        </div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#home" class="active" onclick="closeMenu()">الرئيسية</a></li>
+            <li><a href="#about" onclick="closeMenu()">من نحن</a></li>
+            <li><a href="#values" onclick="closeMenu()">قيمنا</a></li>
+            <li><a href="#projects" onclick="closeMenu()">مشاريعنا</a></li>
+            <li><a href="#construction" onclick="closeMenu()">مراحل البناء</a></li>
+            <li><a href="#contact" onclick="closeMenu()">تواصل معنا</a></li>
+        </ul>
+        <button class="menu-toggle" id="menuToggle" onclick="toggleMenu()">
+            <i class="fas fa-bars"></i>
+        </button>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero" id="home">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="hero-badge">✦ شريكك الموثوق للسكن الراقي في دمنهور ✦</div>
+            <h1>نبني أحلامكم <span>بإتقان وفخامة</span></h1>
+            <p class="hero-tagline">« فخامة مش طبيعية في قلب مدينة دمنهور »</p>
+            <p class="hero-desc">
+                شركة آل ياسر للتطوير العقاري — نقدم لكم مشاريع سكنية واستثمارية مميزة بأرقى الأماكن في مدينة دمنهور، بتصميمات حديثة تناسب ذوقكم. احجزوا لراحتكم واستقراركم في مكان يستحق ثقتكم!
+            </p>
+            <div class="hero-btns">
+                <a href="#projects" class="btn-primary">استكشف مشاريعنا <i class="fas fa-arrow-left"></i></a>
+                <a href="#about" class="btn-outline">تعرّف علينا</a>
+            </div>
+        </div>
+        <div class="hero-scroll">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="section about-section" id="about">
+        <div class="section-header reveal">
+            <div class="section-subtitle">من نحن</div>
+            <h2 class="section-title">نبذة عن <span>آل ياسر</span></h2>
+            <div class="section-line"></div>
+        </div>
+        <div class="about-grid">
+            <div class="about-image-wrapper reveal-left">
+                <img src="about-img.jpg" alt="آل ياسر للتطوير العقاري">
+                <div class="about-badge">
+                    <div class="number">دمنهور</div>
+                    <div class="text">البحيرة — مصر</div>
+                </div>
+            </div>
+            <div class="about-text reveal-right">
+                <h3>شريكك الموثوق للسكن الراقي</h3>
+                <p>
+                    شركة آل ياسر للتطوير العقاري هي شركة رائدة في مجال التطوير العقاري بمدينة دمنهور. نقدم مشاريع سكنية وتجارية مميزة بأرقى المواقع، مع الحرص على أعلى معايير الجودة في البناء والتصميم.
+                </p>
+                <p>
+                    نعمل بشغف لتقديم مشاريع تجمع بين التصميمات الحديثة والموقع المتميز، لنوفر لعملائنا فرصاً استثمارية وسكنية تستحق ثقتهم. كل مشاريعنا تحت إشراف هندسي متخصص لضمان أعلى مستويات الأمان والجودة.
+                </p>
+                <div class="about-features">
+                    <div class="about-feature">
+                        <i class="fas fa-building"></i>
+                        <span>مواقع متميزة</span>
+                    </div>
+                    <div class="about-feature">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>إشراف هندسي</span>
+                    </div>
+                    <div class="about-feature">
+                        <i class="fas fa-drafting-compass"></i>
+                        <span>تصميمات حديثة</span>
+                    </div>
+                    <div class="about-feature">
+                        <i class="fas fa-handshake"></i>
+                        <span>ثقة والتزام</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VALUES -->
+    <section class="section values-section" id="values">
+        <div class="section-header reveal">
+            <div class="section-subtitle">لماذا نحن</div>
+            <h2 class="section-title">قيمنا <span>ومبادئنا</span></h2>
+            <div class="section-line"></div>
+        </div>
+        <div class="values-grid stagger-children">
+            <div class="value-card reveal" style="--i:0">
+                <div class="value-icon"><i class="fas fa-crown"></i></div>
+                <h3>الجودة في البناء</h3>
+                <p>نحرص على استخدام أجود المواد في البناء من رخام مستورد وخوازيق وأساسات قوية، لنضمن لكم مباني متينة وآمنة تدوم طويلاً.</p>
+            </div>
+            <div class="value-card reveal" style="--i:1">
+                <div class="value-icon"><i class="fas fa-map-marker-alt"></i></div>
+                <h3>مواقع استراتيجية</h3>
+                <p>نختار أرقى وأفضل المواقع في مدينة دمنهور لمشاريعنا، لنوفر لعملائنا سهولة الوصول والقرب من الخدمات والمرافق الحيوية.</p>
+            </div>
+            <div class="value-card reveal" style="--i:2">
+                <div class="value-icon"><i class="fas fa-handshake"></i></div>
+                <h3>الثقة والمصداقية</h3>
+                <p>نؤمن بأن الثقة هي أساس كل تعامل ناجح. نلتزم بوعودنا ونحرص على رضا عملائنا في كل خطوة من خطوات المشروع.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- QUOTE 1 -->
+    <section class="quote-section">
+        <div class="reveal">
+            <div class="quote-icon"><i class="fas fa-quote-right"></i></div>
+            <p class="quote-text">
+                احجز لراحتك واستقرارك... <span>مكان يستحق ثقتك</span>
+            </p>
+            <p class="quote-author">— شركة آل ياسر للتطوير العقاري</p>
+        </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section class="section projects-section" id="projects">
+        <div class="section-header reveal">
+            <div class="section-subtitle">أعمالنا</div>
+            <h2 class="section-title">مشاريعنا <span>المتميزة</span></h2>
+            <div class="section-line"></div>
+        </div>
+        <div class="projects-grid stagger-children">
+            <div class="project-card reveal" style="--i:0" onclick="openProject('alkhair')">
+                <div class="project-card-bg" style="background-image: url('burj-alkhair-1.jpg');"></div>
+                <div class="project-card-overlay"></div>
+                <div class="project-card-content">
+                    <div class="project-card-tag">مشروع مميز</div>
+                    <h3>برج الخير</h3>
+                    <p>فخامة مش طبيعية في قلب مدينة دمنهور</p>
+                    <button class="project-card-btn">
+                        عرض التفاصيل
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="project-card reveal" style="--i:1" onclick="openProject('alorouba')">
+                <div class="project-card-bg" style="background-image: url('./burj-alorouba-1.jpg');"></div>
+                <div class="project-card-overlay"></div>
+                <div class="project-card-content">
+                    <div class="project-card-tag">مشروع مميز</div>
+                    <h3>برج العروبة</h3>
+                    <p>بأرقى الأماكن في مدينة دمنهور</p>
+                    <button class="project-card-btn">
+                        عرض التفاصيل
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="project-card reveal" style="--i:2" onclick="openProject('ajyad')">
+                <div class="project-card-bg" style="background-image: url('burj-ajyad-1.jpg');"></div>
+                <div class="project-card-overlay"></div>
+                <div class="project-card-content">
+                    <div class="project-card-tag">مشروع جديد</div>
+                    <h3>برج أجياد</h3>
+                    <p>مشروع سكني وتجاري مميز في دمنهور</p>
+                    <button class="project-card-btn">
+                        عرض التفاصيل
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- QUOTE 2 -->
+    <section class="quote-section">
+        <div class="reveal">
+            <div class="quote-icon"><i class="fas fa-star"></i></div>
+            <p class="quote-text">
+                فرصة <span>استثمارية</span> وسكنية مميزة... شريكك الموثوق للسكن <span>الراقي</span> في دمنهور
+            </p>
+            <p class="quote-author">— آل ياسر للتطوير العقاري</p>
+        </div>
+    </section>
+
+    <!-- CONSTRUCTION GALLERY -->
+    <section class="section construction-section" id="construction">
+        <div class="section-header reveal">
+            <div class="section-subtitle">مراحل العمل</div>
+            <h2 class="section-title">مراحل <span>البناء</span></h2>
+            <div class="section-line"></div>
+            <p style="color: var(--text-light); margin-top: 18px; font-size: 1rem; max-width: 600px; margin-left: auto; margin-right: auto; line-height: 1.9;">
+                نحرص على توثيق كل مرحلة من مراحل البناء — من الخوازيق والأساسات حتى الانتهاء — لنضمن الشفافية والجودة في كل خطوة.
+            </p>
+        </div>
+        <div class="construction-gallery collapsed" id="constructionGallery">
+            <img src="build1.png" alt="مرحلة بناء 1" onclick="openLightboxGallery(buildImages, 0)" loading="lazy">
+            <img src="build2.png" alt="مرحلة بناء 2" onclick="openLightboxGallery(buildImages, 1)" loading="lazy">
+            <img src="build3.png" alt="مرحلة بناء 3" onclick="openLightboxGallery(buildImages, 2)" loading="lazy">
+            <img src="build4.png" alt="مرحلة بناء 4" onclick="openLightboxGallery(buildImages, 3)" loading="lazy">
+            <img src="build5.png" alt="مرحلة بناء 5" onclick="openLightboxGallery(buildImages, 4)" loading="lazy">
+            <img src="build6.png" alt="مرحلة بناء 6" onclick="openLightboxGallery(buildImages, 5)" loading="lazy">
+            <img src="build7.png" alt="مرحلة بناء 7" onclick="openLightboxGallery(buildImages, 6)" loading="lazy">
+            <img src="build8.png" alt="مرحلة بناء 8" onclick="openLightboxGallery(buildImages, 7)" loading="lazy">
+            <img src="build9.png" alt="مرحلة بناء 9" onclick="openLightboxGallery(buildImages, 8)" loading="lazy">
+            <img src="build10.png" alt="مرحلة بناء 10" onclick="openLightboxGallery(buildImages, 9)" loading="lazy">
+            <img src="build11.png" alt="مرحلة بناء 11" onclick="openLightboxGallery(buildImages, 10)" loading="lazy">
+            <img src="build12.png" alt="مرحلة بناء 12" onclick="openLightboxGallery(buildImages, 11)" loading="lazy">
+            <img src="build13.png" alt="مرحلة بناء 13" onclick="openLightboxGallery(buildImages, 12)" loading="lazy">
+            <img src="build14.png" alt="مرحلة بناء 14" onclick="openLightboxGallery(buildImages, 13)" loading="lazy">
+            <img src="build15.png" alt="مرحلة بناء 15" onclick="openLightboxGallery(buildImages, 14)" loading="lazy">
+            <img src="build16.png" alt="مرحلة بناء 16" onclick="openLightboxGallery(buildImages, 15)" loading="lazy">
+            <img src="build17.png" alt="مرحلة بناء 17" onclick="openLightboxGallery(buildImages, 16)" loading="lazy">
+            <img src="build18.png" alt="مرحلة بناء 18" onclick="openLightboxGallery(buildImages, 17)" loading="lazy">
+            <img src="build19.png" alt="مرحلة بناء 19" onclick="openLightboxGallery(buildImages, 18)" loading="lazy">
+            <img src="build20.png" alt="مرحلة بناء 20" onclick="openLightboxGallery(buildImages, 19)" loading="lazy">
+            <img src="build21.png" alt="مرحلة بناء 21" onclick="openLightboxGallery(buildImages, 20)" loading="lazy">
+            <img src="build22.png" alt="مرحلة بناء 22" onclick="openLightboxGallery(buildImages, 21)" loading="lazy">
+            <img src="build23.png" alt="مرحلة بناء 23" onclick="openLightboxGallery(buildImages, 22)" loading="lazy">
+            <img src="build24.png" alt="مرحلة بناء 24" onclick="openLightboxGallery(buildImages, 23)" loading="lazy">
+            <img src="build25.png" alt="مرحلة بناء 25" onclick="openLightboxGallery(buildImages, 24)" loading="lazy">
+            <img src="build26.png" alt="مرحلة بناء 26" onclick="openLightboxGallery(buildImages, 25)" loading="lazy">
+            <img src="build27.png" alt="مرحلة بناء 27" onclick="openLightboxGallery(buildImages, 26)" loading="lazy">
+            <img src="build28.png" alt="مرحلة بناء 28" onclick="openLightboxGallery(buildImages, 27)" loading="lazy">
+            <img src="build29.png" alt="مرحلة بناء 29" onclick="openLightboxGallery(buildImages, 28)" loading="lazy">
+            <img src="build30.png" alt="مرحلة بناء 30" onclick="openLightboxGallery(buildImages, 29)" loading="lazy">
+        </div>
+        <button class="toggle-gallery-btn" id="toggleGalleryBtn" onclick="toggleConstructionGallery()">
+            <span>عرض كل الصور</span>
+            <i class="fas fa-chevron-down"></i>
+        </button>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="section contact-section" id="contact">
+        <div class="section-header reveal">
+            <div class="section-subtitle">تواصل معنا</div>
+            <h2 class="section-title">نحن هنا <span>لخدمتكم</span></h2>
+            <div class="section-line"></div>
+        </div>
+        <div class="contact-grid stagger-children">
+            <a href="https://wa.me/201033440249" target="_blank" class="contact-info-card reveal" style="--i:0">
+                <div class="icon"><i class="fab fa-whatsapp"></i></div>
+                <div>
+                    <h4>واتساب</h4>
+                    <p dir="ltr">010 3344 0249</p>
+                </div>
+            </a>
+            <a href="https://www.facebook.com/share/1GUiEAK5L9/" target="_blank" class="contact-info-card reveal" style="--i:1">
+                <div class="icon"><i class="fab fa-facebook-f"></i></div>
+                <div>
+                    <h4>فيسبوك</h4>
+                    <p>آل ياسر للتطوير العقاري</p>
+                </div>
+            </a>
+            <div class="contact-info-card reveal" style="--i:2">
+                <div class="icon"><i class="fas fa-map-marker-alt"></i></div>
+                <div>
+                    <h4>برج الخير</h4>
+                    <p>دمنهور — شارع مسجد الوهاب أمام بوابة النادى الاجتماعى الخلفية</p>
+                </div>
+            </div>
+            <div class="contact-info-card reveal" style="--i:3">
+                <div class="icon"><i class="fas fa-map-marker-alt"></i></div>
+                <div>
+                    <h4>برج العروبة</h4>
+                    <p>دمنهور — أرض أدمون شارع بنك أبو ظبي أمام المحافظة</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="logo.png" alt="آل ياسر">
+                <span>آل ياسر للتطوير العقاري</span>
+            </div>
+            <p class="footer-text">© 2024 شركة آل ياسر للتطوير العقاري — جميع الحقوق محفوظة</p>
+            <div class="footer-social">
+                <a href="https://www.facebook.com/share/1GUiEAK5L9/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://wa.me/201033440249" target="_blank"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- PROJECT MODAL -->
+    <div class="modal-overlay" id="projectModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <h2 id="modalTitle"></h2>
+                    <p id="modalSubtitle"></p>
+                </div>
+                <button class="modal-close" onclick="closeProject()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-description">
+                    <h3><i class="fas fa-info-circle"></i> وصف المشروع</h3>
+                    <p id="modalDesc"></p>
+                </div>
+                <div id="modalInfoBox"></div>
+                <h3 class="modal-description" style="margin-bottom:15px"><i class="fas fa-check-circle" style="color:var(--gold)"></i> مميزات المشروع</h3>
+                <div class="modal-features" id="modalFeatures"></div>
+                <h3 class="modal-gallery-title"><i class="fas fa-images"></i> معرض الصور</h3>
+                <div class="modal-gallery" id="modalGallery"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- LIGHTBOX -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" onclick="closeLightbox()"><i class="fas fa-times"></i></button>
+        <button class="lightbox-nav prev" onclick="navigateLightbox(1)"><i class="fas fa-chevron-right"></i></button>
+        <img id="lightboxImg" src="" alt="">
+        <button class="lightbox-nav next" onclick="navigateLightbox(-1)"><i class="fas fa-chevron-left"></i></button>
+        <div class="lightbox-counter" id="lightboxCounter"></div>
+    </div>
+
+    <script>
+        // ==================== BUILD IMAGES ARRAY ====================
+        const buildImages = [];
+        for (let i = 1; i <= 30; i++) {
+            buildImages.push('build' + i + '.png');
+        }
+
+        // ==================== PROJECTS DATA ====================
+        const projectsData = {
+            alkhair: {
+                title: 'برج الخير',
+                subtitle: 'مشروع سكني وتجاري مميز — دمنهور',
+                desc: 'برج الخير من آل ياسر للتطوير العقاري في قلب مدينة دمنهور هيخليك تعيش الرفاهية بجد. مشروع سكني وتجاري مميز بتصميمات حديثة تناسب ذوقك. احجز لراحتك واستقرارك في مكان يستحق ثقتك! فرصة استثمارية وسكنية مميزة من آل ياسر للتطوير العقاري — شريكك الموثوق للسكن الراقي في دمنهور.',
+                infoBox: {
+                    area: 'مساحة ١٥٥ متر — ناصية — الدور شقة واحدة',
+                    address: 'دمنهور — شارع مسجد الوهاب أمام بوابة النادى الاجتماعى الخلفية (بوابة حمام السباحة) ومتفرع أيضاً من شارع 16 فور سيزون',
+                    engineering: 'رسومات هندسية وإنشاء معماري وأبحاث تربة وخوازيق د.م/حمدي الحوشي'
+                },
+                features: [
+                    { icon: 'fas fa-door-open', text: 'تسليم واجهة كاملة بالألوميتال' },
+                    { icon: 'fas fa-archway', text: 'مدخل فندقي رخام مستورد' },
+                    { icon: 'fas fa-elevator', text: 'أسانسير مستورد' },
+                    { icon: 'fas fa-door-closed', text: 'باب شقة مصفح' },
+                    { icon: 'fas fa-bolt', text: 'تأسيس كهرباء كامل' },
+                    { icon: 'fas fa-paint-roller', text: 'محارة وأوتار' },
+                    { icon: 'fas fa-anchor', text: 'تأسيس خوازيق' },
+                    { icon: 'fas fa-lightbulb', text: 'واجهة مضيئة' },
+                    { icon: 'fas fa-video', text: 'سيستم كاميرات مراقبة' },
+                    { icon: 'fas fa-store', text: 'محلات تجارية بمساحات مختلفة' },
+                ],
+                images: [
+                    'burj-alkhair-1.jpg',
+                    'burj-alkhair-2.jpg',
+                    'burj-alkhair-3.jpg',
+                    'burj-alkhair-4.jpg',
+                    'burj-alkhair-5.jpg',
+                    'burj-alkhair-6.jpg',
+                    'burj-alkhair-7.jpg',
+                    'burj-alkhair-8.jpg',
+                    'burj-alkhair-9.jpg',
+                    'burj-alkhair-10.jpg',
+                    'burj-alkhair-11.jpg',
+                    'burj-alkhair-12.jpg',
+                    'burj-alkhair-13.jpg',
+                    'burj-alkhair-14.jpg',
+                    'burj-alkhair-15.jpg',
+                    'burj-alkhair-16.jpg',
+                    'burj-alkhair-17.jpg',
+                    'burj-alkhair-18.jpg',
+                    'burj-alkhair-19.jpg'
+                ]
+            },
+            alorouba: {
+                title: 'برج العروبة',
+                subtitle: 'مشروع سكني وتجاري مميز — دمنهور',
+                desc: 'برج العروبة من آل ياسر للتطوير العقاري بأرقى الأماكن في مدينة دمنهور هيخليك تعيش الرفاهية بجد. مشروع سكني وتجاري مميز بتصميمات حديثة تناسب ذوقك. احجز لراحتك واستقرارك في مكان يستحق ثقتك! فرصة استثمارية وسكنية مميزة من آل ياسر للتطوير العقاري — شريكك الموثوق للسكن الراقي في دمنهور.',
+                infoBox: {
+                    area: 'مساحة ١٧٠ م ناصية — ومساحة ١٦٠ واجهة',
+                    address: 'دمنهور — أرض أدمون شارع بنك أبو ظبي أمام المحافظة',
+                    engineering: 'رسومات هندسية وإنشاء معماري وأبحاث تربة وخوازيق د.م/حمدي الحوشي'
+                },
+                features: [
+                    { icon: 'fas fa-archway', text: 'مدخل فندقي رخام مستورد' },
+                    { icon: 'fas fa-elevator', text: 'أسانسير مستورد' },
+                    { icon: 'fas fa-door-closed', text: 'باب شقة مصفح' },
+                    { icon: 'fas fa-bolt', text: 'تأسيس كهرباء كامل' },
+                    { icon: 'fas fa-paint-roller', text: 'محارة وأوتار' },
+                    { icon: 'fas fa-anchor', text: 'تأسيس خوازيق' },
+                    { icon: 'fas fa-lightbulb', text: 'واجهة مضيئة' },
+                    { icon: 'fas fa-video', text: 'سيستم كاميرات مراقبة' },
+                    { icon: 'fas fa-store', text: 'محلات تجارية بمساحات مختلفة' },
+                ],
+                images: [
+                    'burj-alorouba-1.jpg',
+                    'burj-alorouba-2.jpg',
+                    'burj-alorouba-3.jpg',
+                    'burj-alorouba-4.jpg',
+                    'burj-alorouba-5.jpg',
+                    'burj-alorouba-6.jpg',
+                    'burj-alorouba-7.jpg'
+                ]
+            },
+            ajyad: {
+                title: 'برج أجياد',
+                subtitle: 'مشروع سكني وتجاري مميز — دمنهور',
+                desc: 'برج أجياد من آل ياسر للتطوير العقاري — مشروع سكني وتجاري مميز في مدينة دمنهور بتصميمات حديثة تناسب ذوقك. احجز لراحتك واستقرارك في مكان يستحق ثقتك! فرصة استثمارية وسكنية مميزة من آل ياسر للتطوير العقاري — شريكك الموثوق للسكن الراقي في دمنهور.',
+                infoBox: {
+                    area: '',
+                    address: 'دمنهور — البحيرة',
+                    engineering: 'رسومات هندسية وإنشاء معماري وأبحاث تربة وخوازيق د.م/حمدي الحوشي'
+                },
+                features: [
+                    { icon: 'fas fa-archway', text: 'مدخل فندقي رخام مستورد' },
+                    { icon: 'fas fa-elevator', text: 'أسانسير مستورد' },
+                    { icon: 'fas fa-door-closed', text: 'باب شقة مصفح' },
+                    { icon: 'fas fa-bolt', text: 'تأسيس كهرباء كامل' },
+                    { icon: 'fas fa-paint-roller', text: 'محارة وأوتار' },
+                    { icon: 'fas fa-anchor', text: 'تأسيس خوازيق' },
+                    { icon: 'fas fa-lightbulb', text: 'واجهة مضيئة' },
+                    { icon: 'fas fa-video', text: 'سيستم كاميرات مراقبة' },
+                ],
+                images: [
+                    'burj-ajyad-1.jpg',
+                    'burj-ajyad-2.jpg'
+                ]
+            }
+        };
+
+        // ==================== LIGHTBOX GALLERY SYSTEM ====================
+        let currentGalleryImages = [];
+        let currentGalleryIndex = 0;
+
+        function openLightboxGallery(images, index) {
+            currentGalleryImages = images;
+            currentGalleryIndex = index;
+            updateLightbox();
+            document.getElementById('lightbox').classList.add('active');
+            event.stopPropagation();
+        }
+
+        function updateLightbox() {
+            document.getElementById('lightboxImg').src = currentGalleryImages[currentGalleryIndex];
+            document.getElementById('lightboxCounter').textContent = 
+                (currentGalleryIndex + 1) + ' / ' + currentGalleryImages.length;
+        }
+
+        function navigateLightbox(direction) {
+            currentGalleryIndex += direction;
+            if (currentGalleryIndex < 0) currentGalleryIndex = currentGalleryImages.length - 1;
+            if (currentGalleryIndex >= currentGalleryImages.length) currentGalleryIndex = 0;
+            updateLightbox();
+            event.stopPropagation();
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+        }
+
+        // Close lightbox on background click
+        document.getElementById('lightbox').addEventListener('click', function(e) {
+            if (e.target === this) closeLightbox();
+        });
+
+        // ==================== CONSTRUCTION GALLERY TOGGLE ====================
+        function toggleConstructionGallery() {
+            const gallery = document.getElementById('constructionGallery');
+            const btn = document.getElementById('toggleGalleryBtn');
+            gallery.classList.toggle('collapsed');
+            btn.classList.toggle('expanded');
+            if (gallery.classList.contains('collapsed')) {
+                btn.querySelector('span').textContent = 'عرض كل الصور';
+            } else {
+                btn.querySelector('span').textContent = 'إخفاء الصور';
+            }
+        }
+
+        // ==================== NAVBAR ====================
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 80) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+
+            const sections = document.querySelectorAll('section[id]');
+            sections.forEach(sec => {
+                const top = sec.offsetTop - 150;
+                const id = sec.getAttribute('id');
+                if (window.scrollY >= top) {
+                    document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+                    const link = document.querySelector(`.nav-links a[href="#${id}"]`);
+                    if (link) link.classList.add('active');
+                }
+            });
+        });
+
+        // ==================== MOBILE MENU ====================
+        function toggleMenu() {
+            document.getElementById('navLinks').classList.toggle('open');
+            const icon = document.querySelector('#menuToggle i');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
+        }
+
+        function closeMenu() {
+            document.getElementById('navLinks').classList.remove('open');
+            const icon = document.querySelector('#menuToggle i');
+            icon.classList.add('fa-bars');
+            icon.classList.remove('fa-times');
+        }
+
+        // ==================== SMOOTH SCROLL ====================
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // ==================== SCROLL REVEAL ====================
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+        document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(el => {
+            revealObserver.observe(el);
+        });
+
+        // ==================== PROJECT MODAL ====================
+        function openProject(key) {
+            const data = projectsData[key];
+            document.getElementById('modalTitle').textContent = data.title;
+            document.getElementById('modalSubtitle').textContent = data.subtitle;
+            document.getElementById('modalDesc').textContent = data.desc;
+
+            let infoBoxHtml = '<div class="modal-info-box">';
+            if (data.infoBox.area) {
+                infoBoxHtml += `
+                    <div class="info-row">
+                        <i class="fas fa-ruler-combined"></i>
+                        <span><strong>المساحة:</strong> ${data.infoBox.area}</span>
+                    </div>`;
+            }
+            infoBoxHtml += `
+                    <div class="info-row">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span><strong>العنوان:</strong> ${data.infoBox.address}</span>
+                    </div>
+                    <div class="info-row">
+                        <i class="fas fa-drafting-compass"></i>
+                        <span>${data.infoBox.engineering}</span>
+                    </div>
+                </div>
+            `;
+            document.getElementById('modalInfoBox').innerHTML = infoBoxHtml;
+
+            const featuresHtml = data.features.map(f => `
+                <div class="modal-feature">
+                    <i class="${f.icon}"></i>
+                    <span>${f.text}</span>
+                </div>
+            `).join('');
+            document.getElementById('modalFeatures').innerHTML = featuresHtml;
+
+            const galleryHtml = data.images.map((img, idx) => `
+                <img src="${img}" alt="${data.title}" onclick="openLightboxGallery(projectsData['${key}'].images, ${idx})" loading="lazy">
+            `).join('');
+            document.getElementById('modalGallery').innerHTML = galleryHtml;
+
+            document.getElementById('projectModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeProject() {
+            document.getElementById('projectModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        document.getElementById('projectModal').addEventListener('click', function(e) {
+            if (e.target === this) closeProject();
+        });
+
+        // ==================== KEYBOARD NAVIGATION ====================
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeProject();
+                closeLightbox();
+            }
+            if (document.getElementById('lightbox').classList.contains('active')) {
+                if (e.key === 'ArrowRight') navigateLightbox(1);
+                if (e.key === 'ArrowLeft') navigateLightbox(-1);
+            }
+        });
+
+        // ==================== PARALLAX ====================
+        window.addEventListener('scroll', () => {
+            const scrolled = window.scrollY;
+            const heroBg = document.querySelector('.hero-bg');
+            if (heroBg && scrolled < window.innerHeight) {
+                heroBg.style.transform = `scale(${1.05 + scrolled * 0.0001}) translateY(${scrolled * 0.15}px)`;
+            }
+        });
+    </script>
+
+</body>
+</html>
